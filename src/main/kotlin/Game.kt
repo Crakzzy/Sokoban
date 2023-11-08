@@ -3,7 +3,7 @@ class Game {
     var board = Array(10) { Array<Any?> (10) {null} }
 
     init {
-        board =
+      //  board =
     }
 
 
