@@ -1,17 +1,31 @@
-class Game(var board: List<String>) {
-
-    var boxes: List<Box> = listOf()
-
+class Game(private var board: List<String>) {
+    private var boxes: MutableList<Box> = mutableListOf()
+    private val player = Player(0,0)
     init {
         for (i in 0..<board.size) {
             for (j in 0..<board[i].length) {
                 if (board[i][j] == 'B') {
-                    boxes.addLast(Box(i, j))
+                    boxes.add(Box(j,i));
+                } else if (board[i][j] == 'P') {
+                    player.x = j
+                    player.y = i
                 }
             }
         }
     }
 
+
+    fun move(input: Char) {
+        if (!validateInput(input)) {
+            println("Invalid move")
+            return
+        }
+
+    }
+
+    private fun validateInput(input: Char): Boolean {
+        return input == 'w' || input == 'a' || input == 's' || input == 'd';
+    }
     fun renderBoard() {
         for (element in board) {
             for (j in 0..<element.length) {
@@ -21,3 +35,13 @@ class Game(var board: List<String>) {
         }
     }
 }
+
+
+
+
+
+/*fun printBoxes() {
+        for (element in boxes ){
+            println(element.x)
+        }
+    }*/
