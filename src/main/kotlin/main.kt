@@ -2,8 +2,8 @@ var board =
     listOf(
         "XXXXXXXXX",
         "XX   XXXX",
-        "X O O  XX",
-        "X X XX XX",
+        "X O O  BX",
+        "X X XX BX",
         "X    BBPX",
         "XXX X   X",
         "XXX   XXX",
@@ -11,7 +11,7 @@ var board =
     )
 
 fun main() {
-    val game = Game(board);
+    val game = Game(board)
     game.renderBoard()
     var input = readln()
     while (input.isNotEmpty()) {
