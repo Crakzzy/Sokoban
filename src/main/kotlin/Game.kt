@@ -1,19 +1,23 @@
-class Game {
+class Game(var board: List<String>) {
 
-    var board = Array(10) { Array<Any?> (10) {null} }
+    var boxes: List<Box> = listOf()
 
     init {
-      //  board =
+        for (i in 0..<board.size) {
+            for (j in 0..<board[i].length) {
+                if (board[i][j] == 'B') {
+                    boxes.addLast(Box(i, j))
+                }
+            }
+        }
     }
 
-
-
-   fun printBoard() {
-       for (i in 0 .. 9) {
-           for (j in 0 .. 9) {
-               print(board[i][j])
-           }
-           println()
-       }
-   }
+    fun renderBoard() {
+        for (element in board) {
+            for (j in 0..<element.length) {
+                print(element[j])
+            }
+            println()
+        }
+    }
 }
