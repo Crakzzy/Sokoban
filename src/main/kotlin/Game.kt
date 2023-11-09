@@ -1,5 +1,6 @@
 class Game(private var board: List<String>) {
-    private var boxes: MutableList<Box> = mutableListOf()
+    private val boxes: MutableList<Box> = mutableListOf()
+    private val points: MutableList<Point> = mutableListOf()
     private val player = Player(0, 0)
 
     init {
@@ -7,6 +8,8 @@ class Game(private var board: List<String>) {
             for (j in 0..<board[i].length) {
                 if (board[i][j] == 'B') {
                     boxes.add(Box(j, i))
+                } else if (board[i][j] == 'O') {
+                    points.add(Point(j,i))
                 } else if (board[i][j] == 'P') {
                     player.x = j
                     player.y = i
@@ -17,13 +20,17 @@ class Game(private var board: List<String>) {
 
 
     fun move(input: Char) {
-        if (!validateInput(input)) {
+
+        player.move(input)
+
+
+        /*if (!validateInput(input)) {
             println("Invalid move")
             return
         }
         if (validateMove(input)) {
 
-        }
+        }*/
     }
 
     // TODO validation check for other inputs
