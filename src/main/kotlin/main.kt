@@ -1,8 +1,8 @@
-var board =
-    listOf(
+var board: MutableList<String> =
+    mutableListOf (
         "XXXXXXXXX",
         "XX   XXXX",
-        "X O O  BX",
+        "X O O   X",
         "X X XX BX",
         "X    BBPX",
         "XXX X   X",
