@@ -13,9 +13,11 @@ var board: MutableList<String> =
 fun main() {
     val game = Game(board)
     game.renderBoard()
+    println("Your input: ")
     var input = readln()
     while (input.isNotEmpty()) {
         game.move(input[0])
+        println("Your input: ")
         input = readln()
     }
 }

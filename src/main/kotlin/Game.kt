@@ -25,9 +25,13 @@ class Game(private var board: MutableList<String>) {
             if (player.move(input, boxes, board)) {
                 println("--------------------------------")
                 renderBoard()
+            } else {
+                println("Can't move there!")
+                println("--------------------------------")
+                renderBoard()
             }
         } else {
-            println("Invalid input!")
+            System.err.println("Invalid input!")
             return
         }
     }

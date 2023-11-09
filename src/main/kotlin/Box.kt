@@ -1,12 +1,7 @@
 class Box(var x: Int, var y: Int) {
-
-    fun move(input: Char): Boolean {
-        // TODO Validate move for box
-
+    fun move(input: Char) {
         if (input == 'w') {
             this.y--
         }
-        return true
     }
-
 }
