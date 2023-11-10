@@ -4,7 +4,7 @@ var board: MutableList<String> =
         "XX   XXXX",
         "X O O  XX",
         "X X XX BX",
-        "X    BBPX",
+        "X    B PX",
         "XXX X  BX",
         "XXX   X X",
         "XXXXXXXXX"

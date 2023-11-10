@@ -3,7 +3,8 @@ class Box(var x: Int, var y: Int) {
         when (input) {
             InputType.UP -> this.y--
             InputType.DOWN -> this.y++
-            else -> {}
+            InputType.LEFT -> this.x--
+            InputType.RIGHT -> this.x++
         }
 
     }
