@@ -1,34 +1,32 @@
 import java.lang.StringBuilder
 
 class Player(var x: Int, var y: Int) {
-    fun move(input: Char, boxes: List<Box>, board: MutableList<String>): Boolean {
-
-        return updateBoard(input, boxes, board)
+    fun move(input: InputType, boxes: List<Box>, board: MutableList<String>) {
+        if (!updateBoard(input, boxes, board)) {
+            System.err.println("Can't move there!")
+        }
     }
 
-    private fun updateBoard(input: Char, boxes: List<Box>, board: MutableList<String>): Boolean {
-        fun validateMove(): Boolean {
-            if (input == 'w') {
-                val boxIndex = boxes.indexOfFirst { it.x == this.x && it.y == this.y - 1 }
-                if (boxIndex != -1) {
-                    if (board[this.y - 1][this.x] == 'X') { // Check for wall
-                        return false
-                    }
-                    if (board[boxes[boxIndex].y][this.x] == 'B' && board[this.y - 2][this.x] == 'X') { // Check for movable box and wall
-                        return false
-                    } else if (board[boxes[boxIndex].y][this.x] == 'B' && board[this.y - 2][this.x] == 'B') { // Check for movable box and another box
-                        return false
-                    }
-                }
-                else if (board[this.y - 1][this.x] == 'X') { // Check for wall
+    private fun validateMove(input: InputType,boxes: List<Box>): Boolean {
+        if (input == InputType.UP) {
+            val boxIndex = boxes.indexOfFirst { it.x == this.x && it.y == this.y - 1 } // Find box at player.y-1
+            if (boxIndex != -1) {
+                if (board[boxes[boxIndex].y][this.x] == 'B' && board[this.y - 2][this.x] == 'X') { // Check for movable box and wall
+                    return false
+                } else if (board[boxes[boxIndex].y][this.x] == 'B' && board[this.y - 2][this.x] == 'B') { // Check for movable box and another box
                     return false
                 }
             }
-            return true
+            else if (board[this.y - 1][this.x] == 'X') { // Check for wall
+                return false
+            }
         }
+        return true
+    }
 
-        if (validateMove()) {
-            if (input == 'w') {
+    private fun updateBoard(input: InputType, boxes: List<Box>, board: MutableList<String>): Boolean {
+        if (validateMove(input, boxes)) {
+            if (input == InputType.UP) {
 
                 // Player move from previous position
                 val newPlayerFrom = StringBuilder(board[this.y])

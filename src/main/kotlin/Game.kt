@@ -1,3 +1,7 @@
+enum class InputType {
+    UP, DOWN, LEFT, RIGHT
+}
+
 class Game(private var board: MutableList<String>) {
     private val boxes: MutableList<Box> = mutableListOf()
     private val points: MutableList<Point> = mutableListOf()
@@ -9,7 +13,7 @@ class Game(private var board: MutableList<String>) {
                 if (board[i][j] == 'B') {
                     boxes.add(Box(j, i))
                 } else if (board[i][j] == 'O') {
-                    points.add(Point(j,i))
+                    points.add(Point(j, i))
                 } else if (board[i][j] == 'P') {
                     player.x = j
                     player.y = i
@@ -21,7 +25,18 @@ class Game(private var board: MutableList<String>) {
 
     fun move(input: Char) {
 
-        if (validateInput(input)) {
+        when (input) {
+            'w' -> player.move(InputType.UP, boxes, board)
+            'a' -> player.move(InputType.LEFT, boxes, board)
+            's' -> player.move(InputType.DOWN, boxes, board)
+            'd' -> player.move(InputType.RIGHT, boxes, board)
+            else -> System.err.println("Invalid Input!")
+        }
+        println("-----------------------------")
+        renderBoard()
+
+
+        /*if (validateInput(input)) {
             if (player.move(input, boxes, board)) {
                 println("--------------------------------")
                 renderBoard()
@@ -30,10 +45,7 @@ class Game(private var board: MutableList<String>) {
                 println("--------------------------------")
                 renderBoard()
             }
-        } else {
-            System.err.println("Invalid input!")
-            return
-        }
+        }*/
     }
 
     private fun validateInput(input: Char): Boolean {
