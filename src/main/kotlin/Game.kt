@@ -10,7 +10,9 @@ class Game(private var board: MutableList<String>) {
     init {
         for (i in 0..<board.size) {
             for (j in 0..<board[i].length) {
-                if (board[i][j] == 'B') {
+                if (board[i][j] == 'B' && board[i][j] == 'G') {
+                    boxes.add(Box(j, i))
+                } else if (board[i][j] == 'B') {
                     boxes.add(Box(j, i))
                 } else if (board[i][j] == 'O') {
                     points.add(Point(j, i))
@@ -22,27 +24,40 @@ class Game(private var board: MutableList<String>) {
         }
     }
 
+    fun isWon(): Boolean {
+        var counter = 0
+        for (str in board) {
+            for (char in str) {
+                if (char == '✓') {
+                    counter++
+                }
+            }
+        }
+        if (counter == points.size) {
+            return true
+        }
+        return false
+    }
 
     fun move(input: Char) {
-
         when (input) {
             'w' -> {
-                if (!player.move(InputType.UP, boxes, board)) {
+                if (!player.move(InputType.UP, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
             }
             'a' -> {
-                if (!player.move(InputType.LEFT, boxes, board)) {
+                if (!player.move(InputType.LEFT, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
             }
             's' -> {
-                if (!player.move(InputType.DOWN, boxes, board)) {
+                if (!player.move(InputType.DOWN, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
             }
             'd' -> {
-                if (!player.move(InputType.RIGHT, boxes, board)) {
+                if (!player.move(InputType.RIGHT, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
             }
