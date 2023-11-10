@@ -26,30 +26,30 @@ class Game(private var board: MutableList<String>) {
     fun move(input: Char) {
 
         when (input) {
-            'w' -> player.move(InputType.UP, boxes, board)
-            'a' -> player.move(InputType.LEFT, boxes, board)
-            's' -> player.move(InputType.DOWN, boxes, board)
-            'd' -> player.move(InputType.RIGHT, boxes, board)
+            'w' -> {
+                if (!player.move(InputType.UP, boxes, board)) {
+                    System.err.println("Can't move there!")
+                }
+            }
+            'a' -> {
+                if (!player.move(InputType.LEFT, boxes, board)) {
+                    System.err.println("Can't move there!")
+                }
+            }
+            's' -> {
+                if (!player.move(InputType.DOWN, boxes, board)) {
+                    System.err.println("Can't move there!")
+                }
+            }
+            'd' -> {
+                if (!player.move(InputType.RIGHT, boxes, board)) {
+                    System.err.println("Can't move there!")
+                }
+            }
             else -> System.err.println("Invalid Input!")
         }
         println("-----------------------------")
         renderBoard()
-
-
-        /*if (validateInput(input)) {
-            if (player.move(input, boxes, board)) {
-                println("--------------------------------")
-                renderBoard()
-            } else {
-                println("Can't move there!")
-                println("--------------------------------")
-                renderBoard()
-            }
-        }*/
-    }
-
-    private fun validateInput(input: Char): Boolean {
-        return input == 'w' || input == 'a' || input == 's' || input == 'd'
     }
 
     fun renderBoard() {
@@ -62,10 +62,3 @@ class Game(private var board: MutableList<String>) {
     }
 
 }
-
-
-/*fun printBoxes() {
-        for (element in boxes ){
-            println(element.x)
-        }
-    }*/
