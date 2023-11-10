@@ -2,11 +2,11 @@ var board: MutableList<String> =
     mutableListOf (
         "XXXXXXXXX",
         "XX   XXXX",
-        "X O O   X",
+        "X O O  XX",
         "X X XX BX",
         "X    BBPX",
-        "XXX X   X",
-        "XXX   XXX",
+        "XXX X  BX",
+        "XXX   X X",
         "XXXXXXXXX"
     )
 
