@@ -20,6 +20,7 @@ class Player(var x: Int, var y: Int) {
                     return false
                 }
             }
+
             InputType.DOWN -> {
                 val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
                 if (box != null) {
@@ -32,16 +33,17 @@ class Player(var x: Int, var y: Int) {
                     return false
                 }
             }
+
             InputType.LEFT -> {
                 val box =
-                    boxes.firstOrNull { it.x == this.x-1 && it.y == this.y} // Find a box in the way of player move
+                    boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
                 if (box != null) {
-                    if (board[this.y][box.x] == 'B' && board[this.y][this.x-2] == 'X') { // Check for movable box and wall
+                    if (board[this.y][box.x] == 'B' && board[this.y][this.x - 2] == 'X') { // Check for movable box and wall
                         return false
-                    } else if (board[this.y][box.x] == 'B' && board[this.y][this.x-2] == 'B') { // Check for movable box and another box
+                    } else if (board[this.y][box.x] == 'B' && board[this.y][this.x - 2] == 'B') { // Check for movable box and another box
                         return false
                     }
-                } else if (board[this.y][this.x-1] == 'X') { // Check for wall
+                } else if (board[this.y][this.x - 1] == 'X') { // Check for wall
                     return false
                 }
             }
@@ -95,12 +97,12 @@ class Player(var x: Int, var y: Int) {
                     this.y++
                 }
                 InputType.LEFT -> {
-
-                    if (board[this.y][this.x-1] == 'B') {
-                        val box = boxes.firstOrNull { it.x == this.x-1 && it.y == this.y }
+                    // Check for box first
+                    if (board[this.y][this.x - 1] == 'B') {
+                        val box = boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y }
                         box?.move(input)
                         val newBoxTo = StringBuilder(board[this.y])
-                        newBoxTo.setCharAt(this.x-2, 'B')
+                        newBoxTo.setCharAt(this.x - 2, 'B')
                         board[this.y] = newBoxTo.toString()
                     }
 
@@ -110,11 +112,30 @@ class Player(var x: Int, var y: Int) {
 
                     // Player move to one left position (x-1)
                     val newPlayerTo = StringBuilder(newPlayerFrom)
-                    newPlayerTo.setCharAt(this.x-1, 'P')
+                    newPlayerTo.setCharAt(this.x - 1, 'P')
                     board[this.y] = newPlayerTo.toString()
                     this.x--
                 }
-                else -> {}
+                InputType.RIGHT -> {
+                    // Check for box first
+                    if (board[this.y][this.x + 1] == 'B') {
+                        val box = boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y }
+                        box?.move(input)
+                        val newBoxTo = StringBuilder(board[this.y])
+                        newBoxTo.setCharAt(this.x + 2, 'B')
+                        board[this.y] = newBoxTo.toString()
+                    }
+
+                    // Player move from previous position
+                    val newPlayerFrom = StringBuilder(board[this.y])
+                    newPlayerFrom.setCharAt(this.x, ' ')
+
+                    // Player move to one left position (x-1)
+                    val newPlayerTo = StringBuilder(newPlayerFrom)
+                    newPlayerTo.setCharAt(this.x + 1, 'P')
+                    board[this.y] = newPlayerTo.toString()
+                    this.x++
+                }
             }
             return true
         }
