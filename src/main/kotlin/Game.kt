@@ -10,7 +10,7 @@ class Game(private var board: MutableList<String>) {
     init {
         for (i in 0..<board.size) {
             for (j in 0..<board[i].length) {
-                if (board[i][j] == 'B' && board[i][j] == 'G') {
+                if (board[i][j] == 'B') {
                     boxes.add(Box(j, i))
                 } else if (board[i][j] == 'B') {
                     boxes.add(Box(j, i))

@@ -11,9 +11,7 @@ class Player(var x: Int, var y: Int) {
                 val box =
                     boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
                 if (box != null) {
-                    if (board[box.y][this.x] == 'B' && board[this.y - 2][this.x] == 'X') { // Check for movable box and wall
-                        return false
-                    } else if (board[box.y][this.x] == 'B' && board[this.y - 2][this.x] == 'B') { // Check for movable box and another box
+                    if (board[this.y - 2][this.x] == 'X' || board[this.y - 2][this.x] == 'B') { // Check for movable box and wall
                         return false
                     }
                 } else if (board[this.y - 1][this.x] == 'X') { // Check for wall
@@ -24,9 +22,7 @@ class Player(var x: Int, var y: Int) {
             InputType.DOWN -> {
                 val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
                 if (box != null) {
-                    if (board[box.y][this.x] == 'B' && board[this.y + 2][this.x] == 'X') { // Check for movable box and wall
-                        return false
-                    } else if (board[box.y][this.x] == 'B' && board[this.y + 2][this.x] == 'B') { // Check for movable box and another box
+                    if (board[this.y + 2][this.x] == 'X' || board[this.y + 2][this.x] == 'B') { // Check for movable box and wall
                         return false
                     }
                 } else if (board[this.y + 1][this.x] == 'X') {
@@ -38,9 +34,7 @@ class Player(var x: Int, var y: Int) {
                 val box =
                     boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
                 if (box != null) {
-                    if (board[this.y][box.x] == 'B' && board[this.y][this.x - 2] == 'X') { // Check for movable box and wall
-                        return false
-                    } else if (board[this.y][box.x] == 'B' && board[this.y][this.x - 2] == 'B') { // Check for movable box and another box
+                    if ( board[this.y][this.x - 2] == 'X' || board[this.y][this.x - 2] == 'B') { // Check for movable box and wall
                         return false
                     }
                 } else if (board[this.y][this.x - 1] == 'X') { // Check for wall
@@ -52,9 +46,7 @@ class Player(var x: Int, var y: Int) {
                 val box =
                     boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
                 if (box != null) {
-                    if (board[this.y][box.x] == 'B' && board[this.y][this.x + 2] == 'X') { // Check for movable box and wall
-                        return false
-                    } else if (board[this.y][box.x] == 'B' && board[this.y][this.x + 2] == 'B') { // Check for movable box and another box
+                    if (board[this.y][this.x + 2] == 'X' || board[this.y][this.x + 2] == 'B') { // Check for movable box and wall
                         return false
                     }
                 } else if (board[this.y][this.x + 1] == 'X') { // Check for wall
@@ -76,7 +68,6 @@ class Player(var x: Int, var y: Int) {
         newPlayerFrom.setCharAt(this.x, ' ')
         return newPlayerFrom.toString()
     }
-
 
     private fun updateBoard(
         input: InputType,
@@ -204,5 +195,4 @@ class Player(var x: Int, var y: Int) {
         board[this.y] = newPlayerTo.toString()
         this.x++
     }
-
 }
