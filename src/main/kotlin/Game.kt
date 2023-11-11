@@ -4,6 +4,12 @@ enum class InputType {
     UP, DOWN, LEFT, RIGHT
 }
 
+const val BOX = 'B'
+const val POINT = 'O'
+const val PLAYER = 'P'
+const val WALL = 'X'
+const val TICK = '✓'
+
 class Game {
     var moveCount: Int = 0
     private var board: MutableList<String> = getLevel()
@@ -28,11 +34,11 @@ class Game {
     private fun initializeGameObjects() {
         for (i in 0..<board.size) {
             for (j in 0..<board[i].length) {
-                if (board[i][j] == 'B') {
+                if (board[i][j] == BOX) {
                     boxes.add(Box(j, i))
-                } else if (board[i][j] == 'O') {
+                } else if (board[i][j] == POINT) {
                     points.add(Point(j, i))
-                } else if (board[i][j] == 'P') {
+                } else if (board[i][j] == PLAYER) {
                     player.x = j
                     player.y = i
                 }
@@ -45,7 +51,7 @@ class Game {
         var counter = 0
         for (str in board) {
             for (char in str) {
-                if (char == '✓') {
+                if (char == TICK) {
                     counter++
                 }
             }

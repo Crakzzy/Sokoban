@@ -14,10 +14,10 @@ class Box(var x: Int, var y: Int) {
     fun isBoxPlaced(board: MutableList<String>, points: MutableList<Point>) {
         for ((strIndex, str) in board.withIndex()) {
             for ((charIndex, char) in str.withIndex()) {
-                if (char == 'B') {
+                if (char == BOX) {
                     if (points.firstOrNull { it.x == charIndex && it.y == strIndex } != null) {
                         val newString = StringBuilder(board[strIndex])
-                        newString.setCharAt(charIndex, '✓')
+                        newString.setCharAt(charIndex, TICK)
                         board[strIndex] = newString.toString()
                     }
                 }

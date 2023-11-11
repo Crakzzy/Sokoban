@@ -39,10 +39,10 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y - 2][this.x] == 'X' || board[this.y - 2][this.x] == 'B') { // Check for movable box and wall
+            if (board[this.y - 2][this.x] == WALL || board[this.y - 2][this.x] == BOX) { // Check for movable box and wall
                 return false
             }
-        } else if (board[this.y - 1][this.x] == 'X') { // Check for wall
+        } else if (board[this.y - 1][this.x] == WALL) { // Check for wall
             return false
         }
         return true
@@ -51,10 +51,10 @@ class Player(var x: Int, var y: Int) {
     private fun validateMoveDown(boxes: List<Box>, board: MutableList<String>): Boolean {
         val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
         if (box != null) {
-            if (board[this.y + 2][this.x] == 'X' || board[this.y + 2][this.x] == 'B') { // Check for movable box and wall
+            if (board[this.y + 2][this.x] == WALL || board[this.y + 2][this.x] == BOX) { // Check for movable box and wall
                 return false
             }
-        } else if (board[this.y + 1][this.x] == 'X') {
+        } else if (board[this.y + 1][this.x] == WALL) {
             return false
         }
         return true
@@ -64,10 +64,10 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y][this.x - 2] == 'X' || board[this.y][this.x - 2] == 'B') { // Check for movable box and wall
+            if (board[this.y][this.x - 2] == WALL || board[this.y][this.x - 2] == BOX) { // Check for movable box and wall
                 return false
             }
-        } else if (board[this.y][this.x - 1] == 'X') { // Check for wall
+        } else if (board[this.y][this.x - 1] == WALL) { // Check for wall
             return false
         }
         return true
@@ -77,10 +77,10 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y][this.x + 2] == 'X' || board[this.y][this.x + 2] == 'B') { // Check for movable box and wall
+            if (board[this.y][this.x + 2] == WALL || board[this.y][this.x + 2] == BOX) { // Check for movable box and wall
                 return false
             }
-        } else if (board[this.y][this.x + 1] == 'X') { // Check for wall
+        } else if (board[this.y][this.x + 1] == WALL) { // Check for wall
             return false
         }
         return true
@@ -90,7 +90,7 @@ class Player(var x: Int, var y: Int) {
     private fun lastPosition(board: MutableList<String>, point: Point?): String {
         val newPlayerFrom = StringBuilder(board[this.y])
         if (point != null) {
-            newPlayerFrom.setCharAt(this.x, 'O')
+            newPlayerFrom.setCharAt(this.x, POINT)
             return newPlayerFrom.toString()
         }
         newPlayerFrom.setCharAt(this.x, ' ')
@@ -128,13 +128,13 @@ class Player(var x: Int, var y: Int) {
 
         // Player move to upper one position (y-1)
         val newPlayerTo = StringBuilder(board[this.y - 1])
-        newPlayerTo.setCharAt(this.x, 'P')
+        newPlayerTo.setCharAt(this.x, PLAYER)
 
-        if (board[this.y - 1][this.x] == 'B' || board[this.y - 1][this.x] == '✓') {
+        if (board[this.y - 1][this.x] == BOX || board[this.y - 1][this.x] == TICK) {
             val box = boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 }
             box?.move(input)
             val newBoxTo = StringBuilder(board[this.y - 2])
-            newBoxTo.setCharAt(this.x, 'B')
+            newBoxTo.setCharAt(this.x, BOX)
             board[this.y - 2] = newBoxTo.toString()
             box?.isBoxPlaced(board, points)
         }
@@ -155,13 +155,13 @@ class Player(var x: Int, var y: Int) {
 
         // Player move to one down position (y+1)
         val newPlayerTo = StringBuilder(board[this.y + 1])
-        newPlayerTo.setCharAt(this.x, 'P')
+        newPlayerTo.setCharAt(this.x, PLAYER)
 
-        if (board[this.y + 1][this.x] == 'B' || board[this.y + 1][this.x] == '✓') {
+        if (board[this.y + 1][this.x] == BOX || board[this.y + 1][this.x] == TICK) {
             val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
             box?.move(input)
             val newBoxTo = StringBuilder(board[this.y + 2])
-            newBoxTo.setCharAt(this.x, 'B')
+            newBoxTo.setCharAt(this.x, BOX)
             board[this.y + 2] = newBoxTo.toString()
             box?.isBoxPlaced(board, points)
         }
@@ -178,11 +178,11 @@ class Player(var x: Int, var y: Int) {
         points: MutableList<Point>
     ) {
         // Check for box first
-        if (board[this.y][this.x - 1] == 'B' || board[this.y][this.x - 1] == '✓') {
+        if (board[this.y][this.x - 1] == BOX || board[this.y][this.x - 1] == TICK) {
             val box = boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y }
             box?.move(input)
             val newBoxTo = StringBuilder(board[this.y])
-            newBoxTo.setCharAt(this.x - 2, 'B')
+            newBoxTo.setCharAt(this.x - 2, BOX)
             board[this.y] = newBoxTo.toString()
             box?.isBoxPlaced(board, points)
         }
@@ -192,7 +192,7 @@ class Player(var x: Int, var y: Int) {
 
         // Player move to one left position (x-1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
-        newPlayerTo.setCharAt(this.x - 1, 'P')
+        newPlayerTo.setCharAt(this.x - 1, PLAYER)
         board[this.y] = newPlayerTo.toString()
         this.x--
     }
@@ -205,11 +205,11 @@ class Player(var x: Int, var y: Int) {
         points: MutableList<Point>
     ) {
         // Check for box first
-        if (board[this.y][this.x + 1] == 'B' || board[this.y][this.x + 1] == '✓') {
+        if (board[this.y][this.x + 1] == BOX || board[this.y][this.x + 1] == TICK) {
             val box = boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y }
             box?.move(input)
             val newBoxTo = StringBuilder(board[this.y])
-            newBoxTo.setCharAt(this.x + 2, 'B')
+            newBoxTo.setCharAt(this.x + 2, BOX)
             board[this.y] = newBoxTo.toString()
             box?.isBoxPlaced(board, points)
         }
@@ -219,7 +219,7 @@ class Player(var x: Int, var y: Int) {
 
         // Player move to one right position (x+1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
-        newPlayerTo.setCharAt(this.x + 1, 'P')
+        newPlayerTo.setCharAt(this.x + 1, PLAYER)
         board[this.y] = newPlayerTo.toString()
         this.x++
     }

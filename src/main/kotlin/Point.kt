@@ -1,3 +1,1 @@
-class Point (var x: Int, var y: Int){
-
-}
+class Point (var x: Int, var y: Int)
