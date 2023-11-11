@@ -3,6 +3,7 @@ enum class InputType {
 }
 
 class Game(private var board: MutableList<String>) {
+    var moveCount: Int = 0
     private val boxes: MutableList<Box> = mutableListOf()
     private val points: MutableList<Point> = mutableListOf()
     private val player = Player(0, 0)
@@ -33,10 +34,7 @@ class Game(private var board: MutableList<String>) {
                 }
             }
         }
-        if (counter == points.size) {
-            return true
-        }
-        return false
+        return counter == points.size
     }
 
     fun move(input: Char) {
@@ -45,21 +43,25 @@ class Game(private var board: MutableList<String>) {
                 if (!player.move(InputType.UP, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
+                moveCount++
             }
             'a' -> {
                 if (!player.move(InputType.LEFT, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
+                moveCount++
             }
             's' -> {
                 if (!player.move(InputType.DOWN, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
+                moveCount++
             }
             'd' -> {
                 if (!player.move(InputType.RIGHT, boxes, board, points)) {
                     System.err.println("Can't move there!")
                 }
+                moveCount++
             }
             else -> System.err.println("Invalid Input!")
         }

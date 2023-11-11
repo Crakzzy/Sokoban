@@ -18,6 +18,7 @@ fun main() {
         game.move(input[0])
         if (game.isWon()) {
             println("CONGRATULATIONS, YOU WON!")
+            println("Moves: ${game.moveCount}")
             return
         }
         println("Your input: ")
