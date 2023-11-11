@@ -1,14 +1,14 @@
-var board: MutableList<String> =
-    mutableListOf (
-        "XXXXXX",
-        "XXOO X",
-        "XXX  X",
-        "X B  X",
-        "X B XX",
-        "XP  XX",
-        "XXXXXX",
-    )
+import java.io.File
+fun getLevel(path: String = "src/main/resources/level.txt"): MutableList<String> {
+    val fileLines: List<String> = File(path).readLines()
+    val board: MutableList<String> = mutableListOf()
+    fileLines.forEach{
+        board.add(it)
+    }
+    return board
+}
 
+val board: MutableList<String> = getLevel()
 fun main() {
     val game = Game(board)
     game.renderBoard()
