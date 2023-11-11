@@ -87,93 +87,122 @@ class Player(var x: Int, var y: Int) {
         if (validateMove(input, boxes, board)) {
             val point = points.firstOrNull { it.x == this.x && it.y == this.y }
             when (input) {
-                InputType.UP -> {
-                    // Player move from previous position,
-                    val newPlayerFrom = lastPosition(point)
-
-                    // Player move to upper one position (y-1)
-                    val newPlayerTo = StringBuilder(board[this.y - 1])
-                    newPlayerTo.setCharAt(this.x, 'P')
-
-                    if (board[this.y - 1][this.x] == 'B' || board[this.y - 1][this.x] == '✓') {
-                        val box = boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 }
-                        box?.move(input)
-                        val newBoxTo = StringBuilder(board[this.y - 2])
-                        newBoxTo.setCharAt(this.x, 'B')
-                        board[this.y - 2] = newBoxTo.toString()
-                        box?.isBoxPlaced(board, points)
-                    }
-                    board[this.y] = newPlayerFrom
-                    board[this.y - 1] = newPlayerTo.toString()
-                    this.y--
-                }
-
-                InputType.DOWN -> {
-
-                    // Player move from previous position
-                    val newPlayerFrom = lastPosition(point)
-
-                    // Player move to one down position (y+1)
-                    val newPlayerTo = StringBuilder(board[this.y + 1])
-                    newPlayerTo.setCharAt(this.x, 'P')
-
-                    if (board[this.y + 1][this.x] == 'B' || board[this.y + 1][this.x] == '✓') {
-                        val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
-                        box?.move(input)
-                        val newBoxTo = StringBuilder(board[this.y + 2])
-                        newBoxTo.setCharAt(this.x, 'B')
-                        board[this.y + 2] = newBoxTo.toString()
-                        box?.isBoxPlaced(board, points)
-                    }
-                    board[this.y] = newPlayerFrom
-                    board[this.y + 1] = newPlayerTo.toString()
-                    this.y++
-                }
-
-                InputType.LEFT -> {
-                    // Check for box first
-                    if (board[this.y][this.x - 1] == 'B' || board[this.y][this.x - 1] == '✓') {
-                        val box = boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y }
-                        box?.move(input)
-                        val newBoxTo = StringBuilder(board[this.y])
-                        newBoxTo.setCharAt(this.x - 2, 'B')
-                        board[this.y] = newBoxTo.toString()
-                        box?.isBoxPlaced(board, points)
-                    }
-
-                    // Player move from previous position
-                    val newPlayerFrom = lastPosition(point)
-
-                    // Player move to one left position (x-1)
-                    val newPlayerTo = StringBuilder(newPlayerFrom)
-                    newPlayerTo.setCharAt(this.x - 1, 'P')
-                    board[this.y] = newPlayerTo.toString()
-                    this.x--
-                }
-
-                InputType.RIGHT -> {
-                    // Check for box first
-                    if (board[this.y][this.x + 1] == 'B' || board[this.y][this.x + 1] == '✓') {
-                        val box = boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y }
-                        box?.move(input)
-                        val newBoxTo = StringBuilder(board[this.y])
-                        newBoxTo.setCharAt(this.x + 2, 'B')
-                        board[this.y] = newBoxTo.toString()
-                        box?.isBoxPlaced(board, points)
-                    }
-
-                    // Player move from previous position
-                    val newPlayerFrom = lastPosition(point)
-
-                    // Player move to one right position (x+1)
-                    val newPlayerTo = StringBuilder(newPlayerFrom)
-                    newPlayerTo.setCharAt(this.x + 1, 'P')
-                    board[this.y] = newPlayerTo.toString()
-                    this.x++
-                }
+                InputType.UP -> moveUp(input, point, boxes, board, points)
+                InputType.DOWN -> moveDown(input, point, boxes, board, points)
+                InputType.LEFT -> moveLeft(input, point, boxes, board, points)
+                InputType.RIGHT -> moveRight(input, point, boxes, board, points)
             }
             return true
         }
         return false
     }
+
+    private fun moveUp(
+        input: InputType,
+        point: Point?,
+        boxes: List<Box>,
+        board: MutableList<String>,
+        points: MutableList<Point>
+    ) {
+        // Player move from previous position,
+        val newPlayerFrom = lastPosition(point)
+
+        // Player move to upper one position (y-1)
+        val newPlayerTo = StringBuilder(board[this.y - 1])
+        newPlayerTo.setCharAt(this.x, 'P')
+
+        if (board[this.y - 1][this.x] == 'B' || board[this.y - 1][this.x] == '✓') {
+            val box = boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 }
+            box?.move(input)
+            val newBoxTo = StringBuilder(board[this.y - 2])
+            newBoxTo.setCharAt(this.x, 'B')
+            board[this.y - 2] = newBoxTo.toString()
+            box?.isBoxPlaced(board, points)
+        }
+        board[this.y] = newPlayerFrom
+        board[this.y - 1] = newPlayerTo.toString()
+        this.y--
+    }
+
+    private fun moveDown(
+        input: InputType,
+        point: Point?,
+        boxes: List<Box>,
+        board: MutableList<String>,
+        points: MutableList<Point>
+    ) {
+        // Player move from previous position
+        val newPlayerFrom = lastPosition(point)
+
+        // Player move to one down position (y+1)
+        val newPlayerTo = StringBuilder(board[this.y + 1])
+        newPlayerTo.setCharAt(this.x, 'P')
+
+        if (board[this.y + 1][this.x] == 'B' || board[this.y + 1][this.x] == '✓') {
+            val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
+            box?.move(input)
+            val newBoxTo = StringBuilder(board[this.y + 2])
+            newBoxTo.setCharAt(this.x, 'B')
+            board[this.y + 2] = newBoxTo.toString()
+            box?.isBoxPlaced(board, points)
+        }
+        board[this.y] = newPlayerFrom
+        board[this.y + 1] = newPlayerTo.toString()
+        this.y++
+    }
+
+    private fun moveLeft(
+        input: InputType,
+        point: Point?,
+        boxes: List<Box>,
+        board: MutableList<String>,
+        points: MutableList<Point>
+    ) {
+        // Check for box first
+        if (board[this.y][this.x - 1] == 'B' || board[this.y][this.x - 1] == '✓') {
+            val box = boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y }
+            box?.move(input)
+            val newBoxTo = StringBuilder(board[this.y])
+            newBoxTo.setCharAt(this.x - 2, 'B')
+            board[this.y] = newBoxTo.toString()
+            box?.isBoxPlaced(board, points)
+        }
+
+        // Player move from previous position
+        val newPlayerFrom = lastPosition(point)
+
+        // Player move to one left position (x-1)
+        val newPlayerTo = StringBuilder(newPlayerFrom)
+        newPlayerTo.setCharAt(this.x - 1, 'P')
+        board[this.y] = newPlayerTo.toString()
+        this.x--
+    }
+
+    private fun moveRight(
+        input: InputType,
+        point: Point?,
+        boxes: List<Box>,
+        board: MutableList<String>,
+        points: MutableList<Point>
+    ) {
+        // Check for box first
+        if (board[this.y][this.x + 1] == 'B' || board[this.y][this.x + 1] == '✓') {
+            val box = boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y }
+            box?.move(input)
+            val newBoxTo = StringBuilder(board[this.y])
+            newBoxTo.setCharAt(this.x + 2, 'B')
+            board[this.y] = newBoxTo.toString()
+            box?.isBoxPlaced(board, points)
+        }
+
+        // Player move from previous position
+        val newPlayerFrom = lastPosition(point)
+
+        // Player move to one right position (x+1)
+        val newPlayerTo = StringBuilder(newPlayerFrom)
+        newPlayerTo.setCharAt(this.x + 1, 'P')
+        board[this.y] = newPlayerTo.toString()
+        this.x++
+    }
+
 }
