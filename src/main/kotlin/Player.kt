@@ -8,52 +8,80 @@ class Player(var x: Int, var y: Int) {
     private fun validateMove(input: InputType, boxes: List<Box>, board: MutableList<String>): Boolean {
         when (input) {
             InputType.UP -> {
-                val box =
-                    boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
-                if (box != null) {
-                    if (board[this.y - 2][this.x] == 'X' || board[this.y - 2][this.x] == 'B') { // Check for movable box and wall
-                        return false
-                    }
-                } else if (board[this.y - 1][this.x] == 'X') { // Check for wall
-                    return false
+                if (validateMoveUp(boxes, board)) {
+                    return true
                 }
             }
 
             InputType.DOWN -> {
-                val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
-                if (box != null) {
-                    if (board[this.y + 2][this.x] == 'X' || board[this.y + 2][this.x] == 'B') { // Check for movable box and wall
-                        return false
-                    }
-                } else if (board[this.y + 1][this.x] == 'X') {
-                    return false
+                if (validateMoveDown(boxes, board)) {
+                    return true
                 }
             }
 
             InputType.LEFT -> {
-                val box =
-                    boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
-                if (box != null) {
-                    if ( board[this.y][this.x - 2] == 'X' || board[this.y][this.x - 2] == 'B') { // Check for movable box and wall
-                        return false
-                    }
-                } else if (board[this.y][this.x - 1] == 'X') { // Check for wall
-                    return false
+                if (validateMoveLeft(boxes, board)) {
+                    return true
                 }
             }
 
             InputType.RIGHT -> {
-                val box =
-                    boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
-                if (box != null) {
-                    if (board[this.y][this.x + 2] == 'X' || board[this.y][this.x + 2] == 'B') { // Check for movable box and wall
-                        return false
-                    }
-                } else if (board[this.y][this.x + 1] == 'X') { // Check for wall
-                    return false
+                if (validateMoveRight(boxes, board)) {
+                    return true
                 }
             }
 
+        }
+        return false
+    }
+
+    private fun validateMoveUp(boxes: List<Box>, board: MutableList<String>): Boolean {
+        val box =
+            boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
+        if (box != null) {
+            if (board[this.y - 2][this.x] == 'X' || board[this.y - 2][this.x] == 'B') { // Check for movable box and wall
+                return false
+            }
+        } else if (board[this.y - 1][this.x] == 'X') { // Check for wall
+            return false
+        }
+        return true
+    }
+
+    private fun validateMoveDown(boxes: List<Box>, board: MutableList<String>): Boolean {
+        val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
+        if (box != null) {
+            if (board[this.y + 2][this.x] == 'X' || board[this.y + 2][this.x] == 'B') { // Check for movable box and wall
+                return false
+            }
+        } else if (board[this.y + 1][this.x] == 'X') {
+            return false
+        }
+        return true
+    }
+
+    private fun validateMoveLeft(boxes: List<Box>, board: MutableList<String>): Boolean {
+        val box =
+            boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
+        if (box != null) {
+            if (board[this.y][this.x - 2] == 'X' || board[this.y][this.x - 2] == 'B') { // Check for movable box and wall
+                return false
+            }
+        } else if (board[this.y][this.x - 1] == 'X') { // Check for wall
+            return false
+        }
+        return true
+    }
+
+    private fun validateMoveRight(boxes: List<Box>, board: MutableList<String>): Boolean {
+        val box =
+            boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
+        if (box != null) {
+            if (board[this.y][this.x + 2] == 'X' || board[this.y][this.x + 2] == 'B') { // Check for movable box and wall
+                return false
+            }
+        } else if (board[this.y][this.x + 1] == 'X') { // Check for wall
+            return false
         }
         return true
     }
