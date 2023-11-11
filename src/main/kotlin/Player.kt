@@ -87,7 +87,7 @@ class Player(var x: Int, var y: Int) {
     }
 
     // Change last position of player to corresponding character
-    private fun lastPosition(point: Point?): String {
+    private fun lastPosition(board: MutableList<String>, point: Point?): String {
         val newPlayerFrom = StringBuilder(board[this.y])
         if (point != null) {
             newPlayerFrom.setCharAt(this.x, 'O')
@@ -124,7 +124,7 @@ class Player(var x: Int, var y: Int) {
         points: MutableList<Point>
     ) {
         // Player move from previous position,
-        val newPlayerFrom = lastPosition(point)
+        val newPlayerFrom = lastPosition(board, point)
 
         // Player move to upper one position (y-1)
         val newPlayerTo = StringBuilder(board[this.y - 1])
@@ -151,7 +151,7 @@ class Player(var x: Int, var y: Int) {
         points: MutableList<Point>
     ) {
         // Player move from previous position
-        val newPlayerFrom = lastPosition(point)
+        val newPlayerFrom = lastPosition(board, point)
 
         // Player move to one down position (y+1)
         val newPlayerTo = StringBuilder(board[this.y + 1])
@@ -188,7 +188,7 @@ class Player(var x: Int, var y: Int) {
         }
 
         // Player move from previous position
-        val newPlayerFrom = lastPosition(point)
+        val newPlayerFrom = lastPosition(board, point)
 
         // Player move to one left position (x-1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
@@ -215,7 +215,7 @@ class Player(var x: Int, var y: Int) {
         }
 
         // Player move from previous position
-        val newPlayerFrom = lastPosition(point)
+        val newPlayerFrom = lastPosition(board, point)
 
         // Player move to one right position (x+1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
