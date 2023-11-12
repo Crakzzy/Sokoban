@@ -23,12 +23,7 @@ class Game {
     }
 
     private fun getLevel(path: String = "src/main/resources/level.txt"): MutableList<String> {
-        val fileLines: List<String> = File(path).readLines()
-        val board: MutableList<String> = mutableListOf()
-        fileLines.forEach {
-            board.add(it)
-        }
-        return board
+        return File(path).readLines().toMutableList()
     }
 
     private fun initializeGameObjects() {
