@@ -8,7 +8,7 @@ const val BOX = 'B'
 const val POINT = 'O'
 const val PLAYER = 'P'
 const val WALL = 'X'
-const val TICK = '✓'
+const val GOOD = 'G'
 
 class Game {
     var moveCount: Int = 0
@@ -22,7 +22,7 @@ class Game {
         initializeGameObjects()
     }
 
-    private fun getLevel(path: String = "src/main/resources/level.txt"): MutableList<String> {
+    private fun getLevel(path: String = "level.txt"): MutableList<String> {
         return File(path).readLines().toMutableList()
     }
 
@@ -46,7 +46,7 @@ class Game {
         var counter = 0
         for (str in board) {
             for (char in str) {
-                if (char == TICK) {
+                if (char == GOOD) {
                     counter++
                 }
             }

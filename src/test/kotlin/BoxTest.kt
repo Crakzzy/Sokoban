@@ -30,7 +30,7 @@ class BoxTest {
         val points = mutableListOf(Point(0, 0))
         val box = Box(0, 0)
         box.isBoxPlaced(board, points)
-        assertEquals("✓", board[0])
+        assertEquals("G", board[0])
     }
 
     @Test
@@ -39,7 +39,7 @@ class BoxTest {
         val points = mutableListOf(Point(0, 0))
         val box = Box(0, 0)
         box.isBoxPlaced(board, points)
-        assertEquals("✓", board[0])
+        assertEquals("G", board[0])
     }
 
     @Test
@@ -57,7 +57,7 @@ class BoxTest {
         val points = mutableListOf(Point(0, 0), Point(1, 0))
         val box = Box(0, 0)
         box.isBoxPlaced(board, points)
-        assertEquals("✓", board[0])
+        assertEquals("G", board[0])
     }
 
     @Test
@@ -93,7 +93,7 @@ class BoxTest {
         val points = mutableListOf(Point(0, 0))
         val box = Box(0, 0)
         box.isBoxPlaced(board, points)
-        assertEquals("✓#", board[0])
+        assertEquals("G#", board[0])
     }
 
     @Test
@@ -102,6 +102,6 @@ class BoxTest {
         val points = mutableListOf(Point(0, 0))
         val box = Box(0, 0)
         box.isBoxPlaced(board, points)
-        assertEquals("✓😀", board[0])
+        assertEquals("G😀", board[0])
     }
 }

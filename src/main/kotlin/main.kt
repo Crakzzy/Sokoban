@@ -7,11 +7,12 @@ fun welcome() {
     println("S - RIGHT")
     println("D - DOWN")
     println("R - RESET LEVEL")
+    println()
+    println("G - Properly placed BOX")
     println("Have fun!")
     println("----------------------------------------------------------------")
 }
 fun main() {
-    System.setProperty("file.encoding", "UTF-16")
     welcome()
     val game = Game()
     game.renderBoard()

@@ -17,7 +17,7 @@ class Box(var x: Int, var y: Int) {
                 if (char == BOX) {
                     if (points.firstOrNull { it.x == charIndex && it.y == strIndex } != null) {
                         val newString = StringBuilder(board[strIndex])
-                        newString.setCharAt(charIndex, TICK)
+                        newString.setCharAt(charIndex, GOOD)
                         board[strIndex] = newString.toString()
                     }
                 }
