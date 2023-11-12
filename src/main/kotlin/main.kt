@@ -11,6 +11,7 @@ fun welcome() {
     println("----------------------------------------------------------------")
 }
 fun main() {
+    System.setProperty("file.encoding", "UTF-16")
     welcome()
     val game = Game()
     game.renderBoard()
