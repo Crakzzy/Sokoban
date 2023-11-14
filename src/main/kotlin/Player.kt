@@ -39,7 +39,7 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y - 2][this.x] == WALL || board[this.y - 2][this.x] == BOX) { // Check for movable box and wall
+            if (board[this.y - 2][this.x] == WALL || board[this.y - 2][this.x] == BOX || board[this.y - 2][this.x] == GOOD) { // Check for movable box and wall
                 return false
             }
         } else if (board[this.y - 1][this.x] == WALL) { // Check for wall
@@ -51,7 +51,7 @@ class Player(var x: Int, var y: Int) {
     private fun validateMoveDown(boxes: List<Box>, board: MutableList<String>): Boolean {
         val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
         if (box != null) {
-            if (board[this.y + 2][this.x] == WALL || board[this.y + 2][this.x] == BOX) { // Check for movable box and wall
+            if (board[this.y + 2][this.x] == WALL || board[this.y + 2][this.x] == BOX || board[this.y + 2][this.x] == GOOD) { // Check for movable box and wall
                 return false
             }
         } else if (board[this.y + 1][this.x] == WALL) {
@@ -64,7 +64,7 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y][this.x - 2] == WALL || board[this.y][this.x - 2] == BOX) { // Check for movable box and wall
+            if (board[this.y][this.x - 2] == WALL || board[this.y][this.x - 2] == BOX || board[this.y][this.x - 2] == GOOD) { // Check for movable box and wall
                 return false
             }
         } else if (board[this.y][this.x - 1] == WALL) { // Check for wall
@@ -77,7 +77,7 @@ class Player(var x: Int, var y: Int) {
         val box =
             boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
         if (box != null) {
-            if (board[this.y][this.x + 2] == WALL || board[this.y][this.x + 2] == BOX) { // Check for movable box and wall
+            if (board[this.y][this.x + 2] == WALL || board[this.y][this.x + 2] == BOX || board[this.y][this.x + 2] == GOOD) { // Check for movable box and wall
                 return false
             }
         } else if (board[this.y][this.x + 1] == WALL) { // Check for wall
