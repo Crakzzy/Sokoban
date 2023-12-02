@@ -1,32 +1,32 @@
 import java.lang.StringBuilder
 
 class Player(var x: Int, var y: Int) {
-    fun move(input: InputType, boxes: List<Box>, board: MutableList<String>, points: MutableList<Point>): Boolean {
+    fun turn(input: InputType, boxes: List<Box>, board: MutableList<String>, points: MutableList<Point>): Boolean {
         return updateBoard(input, boxes, board, points)
     }
 
     private fun validateMove(input: InputType, boxes: List<Box>, board: MutableList<String>): Boolean {
         when (input) {
             InputType.UP -> {
-                if (validateMoveUp(boxes, board)) {
+                if (validateMove(boxes, board, 0, -1)) {
                     return true
                 }
             }
 
             InputType.DOWN -> {
-                if (validateMoveDown(boxes, board)) {
+                if (validateMove(boxes, board, 0, 1)) {
                     return true
                 }
             }
 
             InputType.LEFT -> {
-                if (validateMoveLeft(boxes, board)) {
+                if (validateMove(boxes, board, -1, 0)) {
                     return true
                 }
             }
 
             InputType.RIGHT -> {
-                if (validateMoveRight(boxes, board)) {
+                if (validateMove(boxes, board, 1, 0)) {
                     return true
                 }
             }
@@ -35,52 +35,14 @@ class Player(var x: Int, var y: Int) {
         return false
     }
 
-    private fun validateMoveUp(boxes: List<Box>, board: MutableList<String>): Boolean {
+    private fun validateMove(boxes: List<Box>, board: MutableList<String>, deltaX: Int, deltaY: Int): Boolean {
         val box =
-            boxes.firstOrNull { it.x == this.x && it.y == this.y - 1 } // Find a box in the way of player move
+            boxes.firstOrNull { it.x == this.x + deltaX && it.y == this.y + deltaY } // Find a box in the way of player turn
         if (box != null) {
-            if (board[this.y - 2][this.x] == WALL || board[this.y - 2][this.x] == BOX || board[this.y - 2][this.x] == GOOD) { // Check for movable box and wall
+            if (board[this.y + deltaY * 2][this.x + deltaX * 2] == WALL || board[this.y + deltaY * 2][this.x + deltaX * 2] == BOX || board[this.y + deltaY * 2][this.x + deltaX * 2] == GOOD) {
                 return false
             }
-        } else if (board[this.y - 1][this.x] == WALL) { // Check for wall
-            return false
-        }
-        return true
-    }
-
-    private fun validateMoveDown(boxes: List<Box>, board: MutableList<String>): Boolean {
-        val box = boxes.firstOrNull { it.x == this.x && it.y == this.y + 1 }
-        if (box != null) {
-            if (board[this.y + 2][this.x] == WALL || board[this.y + 2][this.x] == BOX || board[this.y + 2][this.x] == GOOD) { // Check for movable box and wall
-                return false
-            }
-        } else if (board[this.y + 1][this.x] == WALL) {
-            return false
-        }
-        return true
-    }
-
-    private fun validateMoveLeft(boxes: List<Box>, board: MutableList<String>): Boolean {
-        val box =
-            boxes.firstOrNull { it.x == this.x - 1 && it.y == this.y } // Find a box in the way of player move
-        if (box != null) {
-            if (board[this.y][this.x - 2] == WALL || board[this.y][this.x - 2] == BOX || board[this.y][this.x - 2] == GOOD) { // Check for movable box and wall
-                return false
-            }
-        } else if (board[this.y][this.x - 1] == WALL) { // Check for wall
-            return false
-        }
-        return true
-    }
-
-    private fun validateMoveRight(boxes: List<Box>, board: MutableList<String>): Boolean {
-        val box =
-            boxes.firstOrNull { it.x == this.x + 1 && it.y == this.y } // Find a box in the way of player move
-        if (box != null) {
-            if (board[this.y][this.x + 2] == WALL || board[this.y][this.x + 2] == BOX || board[this.y][this.x + 2] == GOOD) { // Check for movable box and wall
-                return false
-            }
-        } else if (board[this.y][this.x + 1] == WALL) { // Check for wall
+        } else if (board[this.y + deltaY][this.x + deltaX] == WALL) { // Check for wall
             return false
         }
         return true
@@ -187,10 +149,10 @@ class Player(var x: Int, var y: Int) {
             box?.isBoxPlaced(board, points)
         }
 
-        // Player move from previous position
+        // Player turn from previous position
         val newPlayerFrom = lastPosition(board, point)
 
-        // Player move to one left position (x-1)
+        // Player turn to one left position (x-1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
         newPlayerTo.setCharAt(this.x - 1, PLAYER)
         board[this.y] = newPlayerTo.toString()
@@ -214,10 +176,10 @@ class Player(var x: Int, var y: Int) {
             box?.isBoxPlaced(board, points)
         }
 
-        // Player move from previous position
+        // Player turn from previous position
         val newPlayerFrom = lastPosition(board, point)
 
-        // Player move to one right position (x+1)
+        // Player turn to one right position (x+1)
         val newPlayerTo = StringBuilder(newPlayerFrom)
         newPlayerTo.setCharAt(this.x + 1, PLAYER)
         board[this.y] = newPlayerTo.toString()

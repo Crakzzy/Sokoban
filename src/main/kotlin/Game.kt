@@ -22,7 +22,7 @@ class Game {
         initializeGameObjects()
     }
 
-    private fun getLevel(path: String = "level.txt"): MutableList<String> {
+    private fun getLevel(path: String = "src/main/resources/level.txt"): MutableList<String> {
         return File(path).readLines().toMutableList()
     }
 
@@ -57,29 +57,29 @@ class Game {
     fun move(input: Char) {
         when (input) {
             'w' -> {
-                if (!player.move(InputType.UP, boxes, board, points)) {
-                    System.err.println("Can't move there!")
+                if (!player.turn(InputType.UP, boxes, board, points)) {
+                    System.err.println("Can't turn there!")
                 }
                 moveCount++
             }
 
             'a' -> {
-                if (!player.move(InputType.LEFT, boxes, board, points)) {
-                    System.err.println("Can't move there!")
+                if (!player.turn(InputType.LEFT, boxes, board, points)) {
+                    System.err.println("Can't turn there!")
                 }
                 moveCount++
             }
 
             's' -> {
-                if (!player.move(InputType.DOWN, boxes, board, points)) {
-                    System.err.println("Can't move there!")
+                if (!player.turn(InputType.DOWN, boxes, board, points)) {
+                    System.err.println("Can't turn there!")
                 }
                 moveCount++
             }
 
             'd' -> {
-                if (!player.move(InputType.RIGHT, boxes, board, points)) {
-                    System.err.println("Can't move there!")
+                if (!player.turn(InputType.RIGHT, boxes, board, points)) {
+                    System.err.println("Can't turn there!")
                 }
                 moveCount++
             }

@@ -7,10 +7,10 @@ class PlayerTest {
         val board = mutableListOf("     ", "     ", "     ", "     ", "     ")
         val player = Player(2, 2)
 
-        val resultUp = player.move(InputType.UP, emptyList(), board, mutableListOf())
-        val resultDown = player.move(InputType.DOWN, emptyList(), board, mutableListOf())
-        val resultLeft = player.move(InputType.LEFT, emptyList(), board, mutableListOf())
-        val resultRight = player.move(InputType.RIGHT, emptyList(), board, mutableListOf())
+        val resultUp = player.turn(InputType.UP, emptyList(), board, mutableListOf())
+        val resultDown = player.turn(InputType.DOWN, emptyList(), board, mutableListOf())
+        val resultLeft = player.turn(InputType.LEFT, emptyList(), board, mutableListOf())
+        val resultRight = player.turn(InputType.RIGHT, emptyList(), board, mutableListOf())
 
         assertEquals(true, resultUp)
         assertEquals(true, resultDown)
@@ -24,10 +24,10 @@ class PlayerTest {
         val player = Player(2, 1)
         val box = Box(2, 2)
 
-        val resultUp = player.move(InputType.UP, listOf(box), board, mutableListOf())
-        val resultDown = player.move(InputType.DOWN, listOf(box), board, mutableListOf())
-        val resultLeft = player.move(InputType.LEFT, listOf(box), board, mutableListOf())
-        val resultRight = player.move(InputType.RIGHT, listOf(box), board, mutableListOf())
+        val resultUp = player.turn(InputType.UP, listOf(box), board, mutableListOf())
+        val resultDown = player.turn(InputType.DOWN, listOf(box), board, mutableListOf())
+        val resultLeft = player.turn(InputType.LEFT, listOf(box), board, mutableListOf())
+        val resultRight = player.turn(InputType.RIGHT, listOf(box), board, mutableListOf())
 
         assertEquals(true, resultUp)
         assertEquals(true, resultDown)
@@ -39,7 +39,7 @@ class PlayerTest {
         val board = mutableListOf("     ", "  P  ", "  ✓  ", "     ", "     ")
         val player = Player(2, 1)
 
-        val result = player.move(InputType.DOWN, emptyList(), board, mutableListOf())
+        val result = player.turn(InputType.DOWN, emptyList(), board, mutableListOf())
 
         assertEquals(true, result)
     }
@@ -50,7 +50,7 @@ class PlayerTest {
         val box = Box(2, 2)
         val point = Point(2, 3)
 
-        val result = player.move(InputType.DOWN, listOf(box), board, mutableListOf(point))
+        val result = player.turn(InputType.DOWN, listOf(box), board, mutableListOf(point))
 
         assertEquals(true, result)
     }
@@ -61,7 +61,7 @@ class PlayerTest {
         val player = Player(2, 1)
         val box = Box(2, 2)
 
-        val result = player.move(InputType.DOWN, listOf(box), board, mutableListOf())
+        val result = player.turn(InputType.DOWN, listOf(box), board, mutableListOf())
 
         assertEquals(true, result)
     }
@@ -70,7 +70,7 @@ class PlayerTest {
         val board = mutableListOf("     ", "  P  ", "  X  ", "     ", "     ")
         val player = Player(2, 1)
 
-        val result = player.move(InputType.DOWN, emptyList(), board, mutableListOf())
+        val result = player.turn(InputType.DOWN, emptyList(), board, mutableListOf())
 
         assertEquals(false, result)
     }
