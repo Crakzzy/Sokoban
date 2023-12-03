@@ -1,4 +1,5 @@
 import java.io.File
+import kotlin.system.exitProcess
 
 enum class InputType {
     UP, DOWN, LEFT, RIGHT
@@ -23,6 +24,12 @@ class Game {
     }
 
     private fun getLevel(path: String = "src/main/resources/level.txt"): MutableList<String> {
+        try {
+            File(path).readLines()
+        } catch (e: Exception) {
+            System.err.println("File not found!")
+            exitProcess(1)
+        }
         return File(path).readLines().toMutableList()
     }
 
